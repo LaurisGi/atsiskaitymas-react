@@ -1,21 +1,40 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { FormContainer } from '../FormContainer'
+import { BASE_URL } from './utils/constants'
+import { useNavigate } from 'react-router-dom'
 
 
 const LoginScreen = () => {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState('');
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-        const handleSubmit = (e: SyntheticEvent) => {
+        const handleSubmit = async (e: SyntheticEvent) => {
             e.preventDefault();
 
-            console.log('submitted')
-        }
+            const response = await fetch(`${BASE_URL}/auth/login` , {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                  email,
+                  password
+                }),
+              })
+              const data = await response.json();
+              console.log(data);
+                if (data.err) {
+                    setLoginError(data.err);
+                } else {
+                    navigate('/home')
+                }
+            }
 
   return (
     <FormContainer>
         <h1>Login</h1>
+        {loginError && <h3>{loginError}</h3>}
         <form onSubmit={handleSubmit}>
             <label>Email address</label>
             <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter your email"/>
