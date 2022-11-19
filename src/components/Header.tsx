@@ -1,14 +1,41 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import SignupScreen from './screens/SignupScreen'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 export const Header = () => {
+
+  const useAuth = () => {
+    const token = localStorage.getItem('token')
+    if (token) {
+        return true
+    } else {
+        return false
+    }
+};
+const user = useAuth()
+
+
+  const navigation = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    navigation("/login")
+  }
   return (
     <header>
-        <Link to="/">Signup</Link>
+      { 
+      user && <>
+          <Link to="/">Home</Link>
+          <Link to="/add">Add</Link>
+          {
+            window.location.pathname!=='/login' && <button onClick={handleLogout}>Logout</button>
+          }
+        </>
+      }
+      { !user && <>
+        <Link to="/signup">Signup</Link>
         <Link to="/login">Login</Link>
-        <Link to="/home">Home</Link>
-        <Link to="/add">Add</Link>
+        </>
+      }
     </header>
   )
 }

@@ -1,14 +1,19 @@
 import React, { SyntheticEvent, useState } from 'react'
 import { FormContainer } from '../FormContainer'
-import { BASE_URL } from './utils/constants'
+import { BASE_URL } from '../utils/constants'
 import { useNavigate } from 'react-router-dom'
 
 
 const LoginScreen = () => {
+  
+  
+
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState('');
+
+
 
         const handleSubmit = async (e: SyntheticEvent) => {
             e.preventDefault();
@@ -16,7 +21,8 @@ const LoginScreen = () => {
             const response = await fetch(`${BASE_URL}/auth/login` , {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'},
+                  'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                   email,
                   password
@@ -27,9 +33,10 @@ const LoginScreen = () => {
                 if (data.err) {
                     setLoginError(data.err);
                 } else {
-                    navigate('/home')
-                }
-            }
+                    localStorage.setItem('token', data.token)
+                    navigate('/')
+                    
+                }}
 
   return (
     <FormContainer>
