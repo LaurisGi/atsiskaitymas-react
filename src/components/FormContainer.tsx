@@ -1,4 +1,6 @@
 import React, { Children } from 'react'
+import styled from 'styled-components'
+
 
 interface Props {
     children: React.ReactNode
@@ -7,7 +9,7 @@ interface Props {
 
 export const FormContainer = ({children}: Props) => {
   return (
-    <div>
+    <div className='wrapper'>
         {children}
     </div>
   )

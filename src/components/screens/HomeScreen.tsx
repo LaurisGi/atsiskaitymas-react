@@ -1,13 +1,14 @@
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useState,} from 'react'
 import { BASE_URL } from '../utils/constants';
+import { FormContainer } from '../FormContainer';
 
 
 
 const HomeScreen = () => {
 
+  const [title, setTitle] = useState([])
+  const [description, setDescription] = useState([])
 
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
 
   const handleSubmit = async (e: SyntheticEvent) => {
 
@@ -20,10 +21,18 @@ const HomeScreen = () => {
         'Authorization': 'Bearer ' + token
       },
       })
-            const data = await response.json()
-            console.log(JSON.stringify(data))
-            
+        
 
+            const data = await response.json()
+            
+            // setTitle(data.map(function(d: any, idx: any ){
+            //   return (
+            //     console.log(`${idx} ${d.title}`)
+            //   )
+            // }))
+
+            // setTitle(data.title)
+            // setDescription(data.description)
             data.forEach((element: any) => {
               const value = element.title;
               console.log(value);
@@ -31,50 +40,41 @@ const HomeScreen = () => {
             })
             data.forEach((element: any) => {
               let value = element.description;
-              console.log(value);
               setDescription(value)
             })
 
   }
 
 
-  return (
-    <>
+  return title ? (
+    <FormContainer>
       <h1>Please click a button to see all your skills added</h1>
+      <div>
       <h2>{title}</h2>
       <h3>{description}</h3>
-    <button onClick={handleSubmit}>show list</button>
-    </>
-  )
+      </div>
+    <button onClick={handleSubmit}>show skills</button>
+    </FormContainer>):( 
+    <FormContainer>
+      <h1>Please click a button to see all your skills added</h1>
+      <h2>Your list is empty</h2>
+    <button onClick={handleSubmit}>show skills</button>
+    </FormContainer> )
 }
+
+
+//   return list ? (
+//       <h1>list: {list}</h1>
+//   ) : (
+//     <h1>Your list is empty! Make sure add your skills on "Add" page</h1>
+//   )
+// }
 
 export default HomeScreen
 
-// const token =  localStorage.getItem('token');
-// const [list, setList] = useState('');
-
-// const handleList = async (e: SyntheticEvent) => {
-//   const response = await fetch(`${BASE_URL}/content/skills` , {
-//       headers: {
-//         Authorization: 'Bearer' + token
-//     }})
-//     const data = await response.json();
-//     console.log(data);
-//       if (data.err) {
-//           console.log(data.err);
-//       } else {
-//         console.log(data)
-//       }
-//     }
-
-// function App() {
-
-
-//   const token =  localStorage.getItem('token')
-//   const [list, setList] = useState('')
 
   // useEffect(() => {
-  //   ;(async () => {
+  //   (async () => {
   //     const response = await fetch(`${BASE_URL}/content/skills`, {
   //       headers: {
   //         'Content-Type': 'application/json',
@@ -85,18 +85,3 @@ export default HomeScreen
   //     })()
   //   })
 
-// const HomeScreen = ({list}: Props) => {
-//   return list ? (
-//       <h1>list: {list}</h1>
-//   ) : (
-//     <h1>Your list is empty! Make sure add your skills on "Add" page</h1>
-//   )
-// }
-
-// const HomeScreen = ({list}: Props) => {
-//   return list ? (
-//       <h1>list: {list}</h1>
-//   ) : (
-//     <h1>Your list is empty! Make sure add your skills on "Add" page</h1>
-//   )
-// }

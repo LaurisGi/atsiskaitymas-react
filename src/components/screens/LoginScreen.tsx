@@ -43,11 +43,17 @@ const LoginScreen = () => {
         <h1>Login</h1>
         {loginError && <h3>{loginError}</h3>}
         <form onSubmit={handleSubmit}>
-            <label>Email address</label>
-            <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter your email"/>
-            <label>Password</label>
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
-            <button>Log In</button>
+          <div className='input'>
+            <div className='input-fields'>
+              <label>Email address</label>
+              <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter your email"/>
+            </div>
+            <div className='input-fields'>
+              <label>Password</label>
+              <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
+            </div>
+              <button>Log In</button>
+          </div>
         </form>
     </FormContainer>
   )

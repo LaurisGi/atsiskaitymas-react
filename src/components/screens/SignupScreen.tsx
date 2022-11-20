@@ -42,10 +42,16 @@ const SignupScreen = () => {
         <h1>Sign Up</h1>
         {registrationError && <h3>{registrationError}</h3>}
         <form onSubmit={handleSubmit}>
-            <label>Email address</label>
-            <input value={email} required onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter your email"/>
-            <label>Password</label>
-            <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
+            <div className='input'>
+              <div className='input-fields'>
+                <label>Email address</label>
+                <input value={email} required onChange={e => setEmail(e.target.value)} type="email" placeholder="Enter your email"/>
+              </div>
+              <div className='input-fields'>
+                <label>Password</label>
+                <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password"/>
+              </div>
+            </div>
             <button>Sign Up</button>
         </form>
     </FormContainer>
