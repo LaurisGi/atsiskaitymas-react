@@ -16,13 +16,15 @@ const AddScreen = () => {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [addErr, SetaddErr] = useState('')
+  const [addSuccess, SetaddSuccess] = useState('')
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const token = localStorage.getItem('token')
 
-    await fetch(`${BASE_URL}/content/skills` , {
+    const response = await fetch(`${BASE_URL}/content/skills` , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,12 +34,24 @@ const AddScreen = () => {
         description
       }),
     })
+    const data = await response.json();
+    console.log(data);
+      if (data.err) {
+        SetaddErr(data.err);
+      } else {
+        SetaddSuccess('Skill was successfully added!');
+        setTitle('')
+        setDescription('')
+      }
+
   }
 
   return (
       <FormContainer>
           <h1>Add skills to your profile</h1>
           <form onSubmit={handleSubmit}>
+            {addErr &&<h2>{addErr}</h2>}
+            <h2 style={{color:"green"}}>{addSuccess}</h2>
             <div className='input'>
               <label>Add to your skills</label>
               <input value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder="Skill"/>

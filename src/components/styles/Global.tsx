@@ -10,14 +10,24 @@ const GlobalStyles = createGlobalStyle`
 
     Header {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         gap: 20px;
         align-items: center;
         height 5vh;
+        padding: 20px 25px;
+        background: #abc5cf;
       }
 
-    body
-    { min-height: 100vh; margin:0; 
+      a {
+        flex-wrap: wrap;
+        margin: 0 auto;
+      }
+      
+
+    body {
+       min-height: 100vh;
+      margin:0 auto;
+      padding-bottom:60px;
     }
 
     h3 {
@@ -40,12 +50,6 @@ const GlobalStyles = createGlobalStyle`
         -webkit-border-radius: 7px;
     }
 
-    Footer {
-        max-width:100%;
-        margin:auto;
-        text-align: center;
-    }
-
     button {
         border: none;
         border-radius: 2px;
@@ -57,6 +61,10 @@ const GlobalStyles = createGlobalStyle`
         background: #0196f8;
         box-shadow: 0 0 4px #999;
         outline: none;
+      }
+
+      img {
+        width: 40px;
       }
 
       .input {
@@ -78,6 +86,8 @@ const GlobalStyles = createGlobalStyle`
         line-height: 150%;
         resize:vertical;
     }
+
+
 `
 
 
